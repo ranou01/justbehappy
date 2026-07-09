@@ -2,22 +2,103 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Just be happy</title>
+
 <style>
 body{
 margin:0;
-height:100vh;
 display:flex;
 justify-content:center;
 align-items:center;
-background:white;
-font-family:Arial,sans-serif;
+height:100vh;
+background:#fff;
+font-family:Georgia, serif;
+overflow:hidden;
+cursor:pointer;
+}
+
+.container{
+text-align:center;
+animation:fade 2s;
+}
+
+.heart{
+font-size:32px;
+animation:float 3s ease-in-out infinite;
+}
+
+.text{
+margin-top:18px;
 font-size:42px;
 color:#222;
+letter-spacing:2px;
+}
+
+.particle{
+position:absolute;
+font-size:20px;
+pointer-events:none;
+animation:fly 2s forwards;
+}
+
+@keyframes fade{
+from{opacity:0;transform:translateY(20px);}
+to{opacity:1;transform:translateY(0);}
+}
+
+@keyframes float{
+0%,100%{transform:translateY(0);}
+50%{transform:translateY(-8px);}
+}
+
+@keyframes fly{
+0%{
+opacity:1;
+transform:translate(0,0) scale(1);
+}
+100%{
+opacity:0;
+transform:translate(var(--x),var(--y)) scale(2);
+}
 }
 </style>
 </head>
+
 <body>
-Just be happy
+
+<div class="container">
+<div class="heart">♡</div>
+<div class="text">Just be happy</div>
+</div>
+
+<script>
+document.body.addEventListener("click",function(e){
+
+for(let i=0;i<18;i++){
+
+let h=document.createElement("div");
+
+h.className="particle";
+
+h.innerHTML=Math.random()>0.5?"♡":"🤍";
+
+h.style.left=e.clientX+"px";
+
+h.style.top=e.clientY+"px";
+
+h.style.setProperty("--x",(Math.random()*300-150)+"px");
+
+h.style.setProperty("--y",(Math.random()*300-150)+"px");
+
+document.body.appendChild(h);
+
+setTimeout(()=>h.remove(),2000);
+
+}
+
+});
+</script>
+
 </body>
 </html>
